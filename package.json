@@ -1,0 +1,34 @@
+{
+  "name": "s3-cognito-cli",
+  "version": "1.0.0",
+  "description": "This is a simple reference architecture and demo to enable external users to access your internal S3 storage without creating IAM users or roles. This is the client-side cli app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/komushi/s3-cognito-cli.git"
+  },
+  "keywords": [
+    "aws",
+    "s3",
+    "cognito",
+    "cli"
+  ],
+  "author": "Lei Xu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/komushi/s3-cognito-cli/issues"
+  },
+  "homepage": "https://github.com/komushi/s3-cognito-cli#readme",
+  "dependencies": {
+    "aws-amplify": "^1.2.2",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0",
+    "short-unique-id": "^1.1.1"
+  },
+  "bin": {
+    "s3upload": "index.js"
+  }
+}
