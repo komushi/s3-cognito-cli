@@ -1,4 +1,4 @@
 # package directories
 node_modules
 
-aws-exports.js
+aws-exports.json

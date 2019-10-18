@@ -26,9 +26,10 @@
     "aws-amplify": "^1.2.2",
     "lodash": "^4.17.15",
     "node-fetch": "^2.6.0",
-    "short-unique-id": "^1.1.1"
+    "short-unique-id": "^1.1.1",
+    "yargs": "^14.2.0"
   },
   "bin": {
-    "s3upload": "index.js"
+    "s3cognito": "index.js"
   }
 }
