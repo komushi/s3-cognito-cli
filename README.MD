@@ -13,6 +13,8 @@ $ npm install -g s3-cognito-cli
 $ s3cognito config --set <aws-exports.json> --usr <user> --pwd <pwd>
 ```
 ### Generate aws-exports.json by referencing to the guide of amplify-s3-cognito
+### This guide below teaches creating S3 and Cognito in an easy way.
+https://github.com/komushi/amplify-s3-cognito
 
 ## 1-3. SignUp a Cognito Userpool User - only once if only using this user
 ```
