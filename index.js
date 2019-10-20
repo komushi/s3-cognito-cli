@@ -8,6 +8,39 @@ const configer = require('./configer');
 yargs
   .scriptName("s3cognito")
   .usage('$0 <cmd> [args]')
+  .command('singup [usr] [pwd]', '',
+    (yargs) => {
+      yargs.option('key', {
+        type: 'string',
+        alias: 'k',
+        default: 'default',
+        describe: 'the key of the config'
+      })
+      .option('usr', {
+        type: 'string',
+        alias: 'u',
+        describe: 'Cognito Userpool Username'
+      })
+      .option('pwd', {
+        type: 'string',
+        alias: 'p',
+        describe: 'Cognito Userpool User Password'
+      })
+    },
+    (argv) => {
+      const config = configer.readConfig(argv.key);
+
+      config.singUp({
+        username: config.usr,
+        password: config.pwd,
+        filePath: argv.file
+      }); 
+
+    }
+  )
+  .example('$0 upload abc.mov', '')
+  .example('$0 upload abc.mov --usr user --pwd pass', '')
+  .example('$0 upload abc.mov --key default', '')
   .command('upload <file>', '',
     (yargs) => {
       yargs.option('key', {
@@ -35,13 +68,13 @@ yargs
           username: argv.usr,
           password: argv.pwd,
           filePath: argv.file
-        });        
+        }, config);        
       } else {
         uploader.upload({
           username: config.usr,
           password: config.pwd,
           filePath: argv.file
-        }); 
+        }, config); 
       }
 
     }

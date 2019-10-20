@@ -1,4 +1,3 @@
-const aws_exports = require('./aws-exports');
 const Amplify = require('aws-amplify');
 const AWS = require('aws-sdk');
 const ShortUniqueId = require('short-unique-id');
@@ -20,8 +19,8 @@ const createUploadJob = `mutation CreateUploadJob($input: CreateUploadJob!) {
 }
 `;
 
-const configureAmplify = () => {
-	Amplify.default.configure(aws_exports);
+const configureAmplify = (config) => {
+	Amplify.default.configure(config);
 
 	// Amplify.default.configure({
  //    Auth: {
@@ -47,8 +46,7 @@ const configureAmplify = () => {
 
 }
 
-const initiateCognitoAuth = async(username, password) => {
-	configureAmplify();
+const initiateCognitoAuth = async(username, password, region) => {
 
 	const Auth = Amplify.Auth;
 
@@ -67,7 +65,7 @@ const initiateCognitoAuth = async(username, password) => {
 	*/
 
 	AWS.config = new AWS.Config({
-	  credentials: currentUserCredentials, region: aws_exports.aws_cognito_region
+	  credentials: currentUserCredentials, region: region
 	});
 
 	return {
@@ -77,13 +75,12 @@ const initiateCognitoAuth = async(username, password) => {
 
 }
 
-const multiUpload = async({username, identityId}, filePath) => {
+const multiUpload = async({username, identityId}, filePath, bucket) => {
 
 	const uid = new ShortUniqueId();
 
 	const fileKey = uid.randomUUID(6);
 	const objKey = `protected/${identityId}/${fileKey}`;
-	const bucket = aws_exports.aws_user_files_s3_bucket;
 
   	const fileStream = fs.createReadStream(path.resolve(filePath));
 
@@ -136,17 +133,19 @@ const saveUploadJob = async ({objKey, fileKey, fileName, user}) => {
   	return { fileKey, data: rtn };
 }
 
-module.exports.upload = async ({username, password, filePath}) => {
-	const authResult = await initiateCognitoAuth(username, password).catch(e => {
+module.exports.upload = async ({username, password, filePath}, config) => {
+	configureAmplify(config);
+
+	const authResult = await initiateCognitoAuth(username, password, config.aws_cognito_region).catch(e => {
 		console.error('Authentication Failure!');
-		// console.error(e);
+		console.error(e);
 	});
 
 	if (!authResult) {
 		return;
 	}
 	
-	const uploadResult = await multiUpload(authResult, filePath).catch(e => {
+	const uploadResult = await multiUpload(authResult, filePath, config.aws_user_files_s3_bucket).catch(e => {
 		console.error('Upload Failure!');
 		// console.error(e);
 	});
