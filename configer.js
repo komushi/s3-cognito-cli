@@ -1,3 +1,6 @@
+const Amplify = require('aws-amplify');
+global.fetch = require('node-fetch');
+
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -50,4 +53,49 @@ readAllConfig = () => {
 
 	return jsonConfig;
 }
+
+module.exports.signUp = async ({username, password, email}, config) => {
+	configureAmplify(config);
+
+	const authResult = await signUp(
+		username, 
+		password,
+		email
+	).catch(e => {
+		console.error('SignUp Failure!');
+		console.error(e);
+	});
+}
+
+module.exports.confirmSignUp = async ({username, code}, config) => {
+	configureAmplify(config);
+
+	const Auth = Amplify.Auth;
+
+	Auth.confirmSignUp(username, code, {
+	    forceAliasCreation: true    
+	})
+	.then(data => console.log(data))
+	.catch(err => console.log(err));
+}
+
+const configureAmplify = (config) => {
+	Amplify.default.configure(config);
+}
+
+const signUp = async(username, password, email) => {
+  	console.log('username', username)
+  	console.log('password', password)	
+
+	const Auth = Amplify.Auth;
+
+	const rtn = await Auth.signUp({
+		username: username,
+		password: password,
+	    attributes: {
+	        email: email
+	    },
+	});
+}
+
 
