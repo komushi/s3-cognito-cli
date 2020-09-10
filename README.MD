@@ -2,6 +2,8 @@
 
 ### This is a simple reference architecture and demo to enable external users to access your internal S3 storage with Cognito Userpool. 
 
+![architecture](images/architecture.png "Architecture")
+
 ## 1. Creating S3 Bucket and Cognito User Pool with amplify cli
 ### Generate configuration and resources
 [AMPLIFY](/AMPLIFY.MD)
