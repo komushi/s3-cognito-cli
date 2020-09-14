@@ -126,10 +126,6 @@ const saveUploadJob = async ({objKey, fileKey, fileName, user}) => {
         throw e;
       });
 
-  	// console.log('***** Begin createUploadJob *****');
-   //  console.log(rtn);
-   //  console.log('***** End createUploadJob *****');
-
   	return { fileKey, data: rtn };
 }
 
