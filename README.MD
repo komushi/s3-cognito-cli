@@ -6,7 +6,7 @@
 
 ## 1. Creating S3 Bucket and Cognito User Pool with amplify cli
 ### Generate configuration and resources
-[AMPLIFY](/AMPLIFY.MD)
+[AMPLIFY](AMPLIFY.MD)
 
 ## 2. Quick Start
 ### 2-1. Installation - only once
