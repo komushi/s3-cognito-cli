@@ -10,9 +10,9 @@
 * uploader.js => s3 upload logic
 * saveUploadJob method in uploader => an additional example to save the upload object's meta data through AWS AppSync. Check 3 about the option.
 
-## 1. Creating S3 Bucket and Cognito User Pool with amplify cli
+## 1. Creating a S3 Bucket and Cognito User Pool with amplify cli
 ### Generate configuration and resources
-* Option 1: Use AWS Amplify CLI [AMPLIFY](AMPLIFY) to create resources
+* Option 1: Use AWS [AMPLIFY](AMPLIFY) CLI to create resources
 * Option 2: Use AWS Management Console to create resources
 
 ## 2. Quick Start
